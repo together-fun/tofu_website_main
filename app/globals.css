@@ -1,0 +1,773 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* 移除本地 @font-face，改用 Google Fonts 通过 Next.js 加载 */
+
+:root {
+  /* 全站唯一左右边距线：navbar / hero 文字 / 聊天室 / 社证行共用（对齐协调的单一来源） */
+  --edge: clamp(24px, 4vw, 56px);
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.05 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.05 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.82 0.18 166);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.6 0.25 290);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.15 0 0);
+  --muted-foreground: oklch(0.64 0 0);
+  --accent: oklch(0.7 0.2 330);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.15 0 0);
+  --input: oklch(0.15 0 0);
+  --ring: oklch(0.82 0.18 166);
+  --chart-1: oklch(0.65 0.22 41);
+  --chart-2: oklch(0.6 0.12 185);
+  --chart-3: oklch(0.4 0.07 227);
+  --chart-4: oklch(0.83 0.19 84);
+  --chart-5: oklch(0.77 0.19 70);
+  --radius: 1rem;
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.82 0.18 166);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.15 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.15 0 0);
+  --sidebar-ring: oklch(0.82 0.18 166);
+}
+
+.dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.05 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.05 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.82 0.18 166);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.27 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.27 0 0);
+  --muted-foreground: oklch(0.71 0 0);
+  --accent: oklch(0.27 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.4 0.14 26);
+  --destructive-foreground: oklch(0.64 0.24 25);
+  --border: oklch(0.27 0 0);
+  --input: oklch(0.27 0 0);
+  --ring: oklch(0.44 0 0);
+  --chart-1: oklch(0.49 0.24 264);
+  --chart-2: oklch(0.7 0.17 162);
+  --chart-3: oklch(0.77 0.19 70);
+  --chart-4: oklch(0.63 0.27 304);
+  --chart-5: oklch(0.65 0.25 16);
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.82 0.18 166);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.27 0 0);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.27 0 0);
+  --sidebar-ring: oklch(0.44 0 0);
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --animate-blob: blob 7s infinite;
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================================================
+   Hero v2 — 背景呼吸 / 鼠标聚光 / 弹幕胶囊
+   ========================================================================== */
+
+/* 压暗层：整体压暗背景图，鼠标处经 mask 开洞变亮；opacity 呼吸制造暗↔亮过渡。 */
+.hero-dim {
+  background: rgba(0, 0, 0, 0.52);
+  -webkit-mask-image: radial-gradient(
+    circle 480px at var(--mx, 50%) var(--my, 42%),
+    transparent 0%,
+    rgba(0, 0, 0, 0.85) 55%,
+    #000 82%
+  );
+  mask-image: radial-gradient(
+    circle 480px at var(--mx, 50%) var(--my, 42%),
+    transparent 0%,
+    rgba(0, 0, 0, 0.85) 55%,
+    #000 82%
+  );
+  animation: hero-breathe 9s ease-in-out infinite;
+}
+
+@keyframes hero-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* 弹幕胶囊 — 几何/配色 1:1 对齐前端 danmaku-worker bakeCardSprite：
+   高 = 头像D + 6（vpad 3）、圆角 = H/2、底 rgba(20,23,27,0.42)、无边框无阴影、
+   间距 左4 / 头像-名8 / 名-文8 / 右14、字体 Arial 栈。 */
+.danmaku-pill {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  padding-right: 14px;
+  border-radius: 9999px;
+  background: rgba(20, 23, 27, 0.42);
+  white-space: nowrap;
+  line-height: 1;
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  will-change: transform;
+  pointer-events: none;
+  animation-name: danmaku-fly;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes danmaku-fly {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100vw - 100%));
+  }
+}
+
+/* 社证头像「新成员加入」轮播（components/hero.tsx 行 3 社证）：
+   固定 4 枚可见窗口 overflow:hidden，轨道每 3.5s 左移一格（--slot = 头像直径 − 重叠量），
+   左端一枚滑出、右端一枚滑入；轨道末尾重复前 4 枚，第 8 步落位与第 0 步逐像素相同 → 循环无跳变。
+   窗口宽固定，右侧文案位置不受影响。 */
+.avatars-join {
+  animation: avatars-join 28s ease-in-out infinite;
+}
+@keyframes avatars-join {
+  0%, 10.5% { transform: translateX(0); }
+  12.5%, 23% { transform: translateX(calc(-1 * var(--slot))); }
+  25%, 35.5% { transform: translateX(calc(-2 * var(--slot))); }
+  37.5%, 48% { transform: translateX(calc(-3 * var(--slot))); }
+  50%, 60.5% { transform: translateX(calc(-4 * var(--slot))); }
+  62.5%, 73% { transform: translateX(calc(-5 * var(--slot))); }
+  75%, 85.5% { transform: translateX(calc(-6 * var(--slot))); }
+  87.5%, 98% { transform: translateX(calc(-7 * var(--slot))); }
+  100% { transform: translateX(calc(-8 * var(--slot))); }
+}
+/* 单枚头像相位曲线（与轨道同周期 28s；每枚经 animation-delay 错相 3.5s·序号）：
+   0–10.5% 在「第 5 位」等候 → 隐藏；10.5–12.5% 随轨道左移入场淡入；
+   50–60.5% 位于最左第 1 位；58–62.5% 先于/伴随滑出窗口渐隐（不是被窗口边缘硬切）；
+   之后已在窗口外，保持透明直到回到第 5 位。 */
+.avatar-join-item {
+  animation: avatar-join-item 28s linear infinite;
+}
+@keyframes avatar-join-item {
+  0%, 10.5% { opacity: 0; }
+  12.5%, 58% { opacity: 1; }
+  62.5%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-dim {
+    animation: none;
+  }
+  .danmaku-pill {
+    display: none;
+  }
+  .avatars-join,
+  .avatar-join-item {
+    animation: none;
+  }
+  /* 静止时只留窗口内 4 枚，第 5 枚起隐藏，避免右缘露月牙 */
+  .avatar-join-item:nth-child(n + 5) {
+    visibility: hidden;
+  }
+}
+
+/* ============================================================================
+   Hero 直播取景框（hero-live-frame）— 稀疏雪花 / 暗色滚动带 / 信号故障线 / 闪烁
+   session-8 复调：框内绝不允许出现整体提亮 / 白色遮罩感（与框外产生色差）。
+   雪花改为「阈值化稀疏亮点」——feColorMatrix 把 alpha 映射为 7a-5.25，
+   只有噪声值 >0.75 的少数像素可见（约 5% 覆盖率），其余全透明 →
+   只有闪烁的雪花点，无底雾；
+   扫描带由白色柔光改为暗色滚动条（CRT roll bar），同样零提亮
+   ========================================================================== */
+
+/* 稀疏雪花：阈值化噪声，只剩零星白点（steps 跳位 → 闪烁），无任何底雾 */
+/* 用户裁定（session 12）：开屏雪花大幅调淡——alpha 阈值 7/-5.25 → 8/-6.4（存活像素
+   更少、颗粒更稀疏），opacity 0.55 → 0.25，保留「隐约有信号感」即可 */
+.live-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 8 -6.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.25;
+  animation: live-noise-jump 0.35s steps(1) infinite;
+}
+
+@keyframes live-noise-jump {
+  0% {
+    background-position: 0 0;
+  }
+  20% {
+    background-position: -64px 44px;
+  }
+  40% {
+    background-position: 46px -92px;
+  }
+  60% {
+    background-position: -94px -42px;
+  }
+  80% {
+    background-position: 62px 90px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* 滚动扫描带：暗色横带自上而下匀速扫过（CRT roll bar，只压暗不提亮 → 零色差） */
+.live-scanband {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 15%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.16) 50%, transparent);
+  animation: live-scanband 5s linear infinite;
+}
+
+/* translateY 以自身高度（父高 15%）为基准：-110% → 780% 正好扫完整个框并留空档 */
+@keyframes live-scanband {
+  from {
+    transform: translateY(-110%);
+  }
+  to {
+    transform: translateY(780%);
+  }
+}
+
+/* 偶发信号故障线：细亮线在随机高度短促闪现并水平错位（长周期 3 次） */
+.live-glitch {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(151, 252, 228, 0.5);
+  box-shadow: 0 0 10px rgba(151, 252, 228, 0.4);
+  opacity: 0;
+  animation: live-glitch 6.5s linear infinite;
+}
+
+@keyframes live-glitch {
+  0%,
+  6.9% {
+    opacity: 0;
+    top: 22%;
+    transform: translateX(0);
+  }
+  7% {
+    opacity: 1;
+    top: 22%;
+    transform: translateX(-6px);
+  }
+  8.2%,
+  35.9% {
+    opacity: 0;
+    top: 64%;
+    transform: translateX(0);
+  }
+  36% {
+    opacity: 1;
+    top: 64%;
+    transform: translateX(5px);
+  }
+  37%,
+  37.9% {
+    opacity: 0;
+    top: 66%;
+    transform: translateX(0);
+  }
+  38% {
+    opacity: 1;
+    top: 66%;
+    transform: translateX(-4px);
+  }
+  38.8%,
+  70.9% {
+    opacity: 0;
+    top: 41%;
+    transform: translateX(0);
+  }
+  71% {
+    opacity: 1;
+    top: 41%;
+    transform: translateX(7px);
+  }
+  72%,
+  100% {
+    opacity: 0;
+    top: 41%;
+    transform: translateX(0);
+  }
+}
+
+/* 偶发信号闪烁：长周期内两三次短促亮度抖动 */
+.live-flicker {
+  animation: live-flicker 9s ease-in-out infinite;
+}
+
+@keyframes live-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.55;
+  }
+  6%,
+  43% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.7;
+  }
+  47%,
+  78% {
+    opacity: 1;
+  }
+  79% {
+    opacity: 0.5;
+  }
+  81% {
+    opacity: 1;
+  }
+}
+
+/* 滚动离开 hero 的「信号中断」（scroll-upgrade d1）：由 hero-live-frame 按滚动进度挂/摘类。
+   整层快速亮度抖动 + 两道青绿故障线（复用 .live-glitch 的青绿调），
+   动画本体是 CSS keyframes，触发完全由 useScroll 驱动（无 setInterval） */
+.live-signal-break {
+  animation: live-break-jitter 0.24s steps(2, jump-none) infinite;
+}
+.live-signal-break::before,
+.live-signal-break::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(151, 252, 228, 0.65);
+  box-shadow: 0 0 12px rgba(151, 252, 228, 0.5);
+  animation: live-break-lines 0.5s steps(1) infinite;
+}
+.live-signal-break::after {
+  animation-delay: -0.25s;
+  animation-duration: 0.65s;
+}
+
+@keyframes live-break-jitter {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* NO SIGNAL 演出（session-13）：断线期间左上标签/中央面板文字的不规则闪烁 +
+   REC 红点熄灭覆盖（!important 压过 JSX 内联红色，classList 摘掉即完全复原） */
+.live-nosignal-text {
+  animation: live-nosignal-flicker 1.1s steps(1) infinite;
+}
+.live-nosignal-dot {
+  background-color: #3f3f3f !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+@keyframes live-nosignal-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  8% {
+    opacity: 0.35;
+  }
+  12%,
+  54% {
+    opacity: 1;
+  }
+  58% {
+    opacity: 0.5;
+  }
+  62%,
+  86% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes live-break-lines {
+  0% {
+    top: 16%;
+    transform: translateX(-5%);
+    opacity: 1;
+  }
+  25% {
+    top: 58%;
+    transform: translateX(4%);
+    opacity: 0;
+  }
+  50% {
+    top: 37%;
+    transform: translateX(-3%);
+    opacity: 1;
+  }
+  75% {
+    top: 79%;
+    transform: translateX(6%);
+    opacity: 0;
+  }
+  100% {
+    top: 16%;
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-noise,
+  .live-flicker,
+  .live-signal-break,
+  .live-nosignal-text {
+    animation: none;
+  }
+  .live-scanband,
+  .live-glitch {
+    display: none;
+  }
+  .live-signal-break::before,
+  .live-signal-break::after {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   Features 三支柱区（features-section）— 跑马灯 / 盲盒动效
+   ========================================================================== */
+
+/* 横向无缝跑马灯：内容渲染两份，位移 -50% 后无缝循环 */
+.features-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: features-marquee var(--marq-dur, 46s) linear infinite;
+}
+.features-marquee.reverse {
+  animation-direction: reverse;
+}
+@keyframes features-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* 盲盒待机流光 */
+.loot-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 32%, rgba(255, 255, 255, 0.16) 50%, transparent 68%);
+  background-size: 220% 100%;
+  animation: loot-sheen 3.2s ease-in-out infinite;
+}
+@keyframes loot-sheen {
+  0% {
+    background-position: 130% 0;
+  }
+  60%,
+  100% {
+    background-position: -90% 0;
+  }
+}
+
+/* 盲盒点击摇晃 */
+.loot-shake {
+  animation: loot-shake 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes loot-shake {
+  10%,
+  90% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  20%,
+  80% {
+    transform: translateX(3px) rotate(2deg);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-5px) rotate(-3deg);
+  }
+  40%,
+  60% {
+    transform: translateX(5px) rotate(3deg);
+  }
+}
+
+/* 开盒白闪 */
+.loot-flash {
+  animation: loot-flash 0.5s ease-out forwards;
+}
+@keyframes loot-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+/* 开盒后旋转金色神光 — 1:1 对齐前端 lootbox-open-overlay 的 buildRays：
+   10 束 8° 窄光束（间隔 36°）、金色 15% 透明、慢旋 14s、
+   径向遮罩 closest-side 30%→70% 淡出（保证光束尖端在元素边缘前完全消失，无圆盘边）。 */
+.loot-rays {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 14deg,
+    rgba(254, 223, 0, 0.15) 14deg 22deg,
+    transparent 22deg 50deg,
+    rgba(254, 223, 0, 0.15) 50deg 58deg,
+    transparent 58deg 86deg,
+    rgba(254, 223, 0, 0.15) 86deg 94deg,
+    transparent 94deg 122deg,
+    rgba(254, 223, 0, 0.15) 122deg 130deg,
+    transparent 130deg 158deg,
+    rgba(254, 223, 0, 0.15) 158deg 166deg,
+    transparent 166deg 194deg,
+    rgba(254, 223, 0, 0.15) 194deg 202deg,
+    transparent 202deg 230deg,
+    rgba(254, 223, 0, 0.15) 230deg 238deg,
+    transparent 238deg 266deg,
+    rgba(254, 223, 0, 0.15) 266deg 274deg,
+    transparent 274deg 302deg,
+    rgba(254, 223, 0, 0.15) 302deg 310deg,
+    transparent 310deg 338deg,
+    rgba(254, 223, 0, 0.15) 338deg 346deg,
+    transparent 346deg 360deg
+  );
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle closest-side, #000 30%, transparent 70%);
+  animation: rays-spin 14s linear infinite;
+}
+@keyframes rays-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   landing 手机可见性硬保证（四次复发后定稿，规则全文见
+   .cursor/rules/landing-mobile-visibility.mdc）
+
+   角色（session-22 后）= 第二道防线：features 三支柱与 CTA tagline 已拆成
+   「手机静态分支 + 桌面动画分支」双 DOM（结构性免疫 resize 残留）；本 guard
+   兜住其余单分支组件（seasons / markets-showcase / CTA 主卡等 whileInView 层）
+   在「桌面加载 → resize 到手机」时 framer-motion 留下的 inline opacity 残留。
+
+   所有单分支「桌面滚动轮换 / 入场动画」层必须挂 .lg-anim。<lg 视口下本规则
+   用 !important 压过一切 inline style。桌面（lg+）不受影响，动画照常。
+   注意：不要挂到手机端也需要 transform 的层（如 marquee scrub 轨道）。
+   ⚠️ 改完必须验证编译输出（session-22 事故：dev 长跑进程对 globals.css 的
+   HMR 卡死，本规则从未进入用户浏览器的 CSS，guard 形同虚设）：
+   浏览器里查 document.styleSheets 或 fetch CSS chunk 搜 "lg-anim"。
+   ============================================================ */
+@media (max-width: 1023.98px) {
+  .lg-anim {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* APP_LIVE 门控按钮点击反馈：文字切 Coming Soon 时轻微左右震动一次
+   （use-coming-soon.ts 挂类；动画 transform 会短暂覆盖 hover scale，0.36s 后恢复） */
+.coming-soon-nudge {
+  animation: coming-soon-nudge 0.36s ease-in-out;
+}
+@keyframes coming-soon-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-3px);
+  }
+  40% {
+    transform: translateX(3px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .features-marquee,
+  .loot-sheen,
+  .loot-rays,
+  .loot-shake,
+  .coming-soon-nudge {
+    animation: none;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+  }
+
+  .glass-hover {
+    @apply hover:bg-white/10 hover:border-white/20 transition-all duration-300;
+  }
+
+  /* 隐藏滚动条（保持可滚动）。 */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 使用 CSS 变量引用 Google Fonts 加载的 Silkscreen */
+  .font-display {
+    font-family: var(--font-display), monospace;
+    font-weight: 400;
+  }
+
+  /* 左右边距对齐线（见 :root --edge） */
+  .edge-x {
+    padding-inline: var(--edge);
+  }
+
+  /* 容器左缘渐隐：弹幕上区只铺右半屏，胶囊飞近左边界时淡出（不撞标题、不生硬裁切） */
+  .mask-fade-l {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 88px);
+    mask-image: linear-gradient(to right, transparent, #000 88px);
+  }
+}
+
+/* ============================================================================
+   全站滚动条（Chromium / Safari 走 ::-webkit-scrollbar）：
+   细滑块、无上下箭头、黑轨道 + 品牌绿半透滑块（hover 实色）。
+   ⚠️ 不要在任何元素上设 scrollbar-width / scrollbar-color（除 .scrollbar-hide 的 none）——
+   这两个属性一旦非 auto，Blink 会切回 OS 滚动条并忽略整套 ::-webkit-scrollbar（箭头复现）。
+   Firefox 忽略本块、用自带细滚动条，可接受。放在 @layer 之外保证不被 Tailwind 层序压掉。 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 241, 149, 0.35);
+  border-radius: 999px;
+  border: 2px solid #030303; /* 视觉滑块 6px，留黑边不贴轨道 */
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: #14f195;
+}
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+::-webkit-scrollbar-corner {
+  background: #030303;
+}
